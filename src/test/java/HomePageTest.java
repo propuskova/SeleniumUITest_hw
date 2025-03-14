@@ -4,8 +4,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 
-import java.time.Duration;
-
 
 /*
 1. Откройте страницу https://bonigarcia.dev/selenium-webdriver-java/
@@ -21,10 +19,11 @@ public class HomePageTest {
     private static final String BASE_URL = "https://bonigarcia.dev/selenium-webdriver-java/";
 
     @BeforeEach
-    void setup() {
+    void setUp() {
         driver = new ChromeDriver(); //запускает браузер
-        driver.get(BASE_URL);
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(2));
+        //driver.get(BASE_URL);
+        driver.manage().window().maximize();
+        //driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(2));
     }
 
     @AfterEach
@@ -38,6 +37,7 @@ public class HomePageTest {
     @Test
     void openHomePageTest () {
         driver.manage().window().maximize();
+        driver.get(BASE_URL);
         String actualTitle = driver.getTitle();
 
         String expectedTitle = "Hands-On Selenium WebDriver with Java";
@@ -48,6 +48,7 @@ public class HomePageTest {
 
     @Test
     void findWebFormTest () {
+        driver.get(BASE_URL);
         //WebElement webForm = driver.findElement(By.xpath("//a[@href='web-form.html']")) ;// - внутри любой вложенности href
         //webForm.click();
 
@@ -65,6 +66,7 @@ public class HomePageTest {
 
     @Test
     void findNavigationTest () {
+        driver.get(BASE_URL);
         driver.findElement(By.xpath("//h5[text() = 'Chapter 3. WebDriver Fundamentals']/../a[contains(@href, 'navigation1')]")).click();
         String expectedUrl = "navigation1.html";
         String actualUrl = driver.getCurrentUrl();
@@ -77,6 +79,7 @@ public class HomePageTest {
 
     @Test
     void findDropdowmMenuTest () {
+        driver.get(BASE_URL);
         driver.findElement(By.xpath("//h5[text() = 'Chapter 3. WebDriver Fundamentals']/../a[contains(@href, 'dropdown-menu.html')]")).click();
         String expectedUrl = "dropdown-menu.html";
         String actualUrl = driver.getCurrentUrl();
@@ -89,6 +92,7 @@ public class HomePageTest {
 
     @Test
     void findMouseOverTest () {
+        driver.get(BASE_URL);
         driver.findElement(By.xpath("//h5[text() = 'Chapter 3. WebDriver Fundamentals']/../a[contains(@href, 'mouse-over.html')]")).click();
         String expectedUrl = "mouse-over.html";
         String actualUrl = driver.getCurrentUrl();
@@ -101,6 +105,7 @@ public class HomePageTest {
 
     @Test
     void findDragAndDropTest () {
+        driver.get(BASE_URL);
         driver.findElement(By.xpath("//h5[text() = 'Chapter 3. WebDriver Fundamentals']/../a[contains(@href, 'drag-and-drop.html')]")).click();
         String expectedUrl = "drag-and-drop.html";
         String actualUrl = driver.getCurrentUrl();
@@ -113,6 +118,7 @@ public class HomePageTest {
 
     @Test
     void findDrawInCanvasTest () {
+        driver.get(BASE_URL);
         driver.findElement(By.xpath("//h5[text() = 'Chapter 3. WebDriver Fundamentals']/../a[contains(@href, 'draw-in-canvas.html')]")).click();
         String expectedUrl = "draw-in-canvas.html";
         String actualUrl = driver.getCurrentUrl();
@@ -125,6 +131,7 @@ public class HomePageTest {
 
     @Test
     void findLoadingImagesTest () {
+        driver.get(BASE_URL);
         driver.findElement(By.xpath("//h5[text() = 'Chapter 3. WebDriver Fundamentals']/../a[contains(@href, 'loading-images.html')]")).click();
         String expectedUrl = "loading-images.html";
         String actualUrl = driver.getCurrentUrl();
@@ -138,7 +145,14 @@ public class HomePageTest {
 
     @Test
     void findSlowCalculatorTest () {
-        driver.findElement(By.xpath("//h5[text() = 'Chapter 3. WebDriver Fundamentals']/../a[contains(@href, 'slow-calculator.html')]")).click();
+        driver.get(BASE_URL);
+        //WebDriverWait longWait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        //WebElement calculator = longWait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//h5[text() = 'Chapter 3. WebDriver Fundamentals']/../a[contains(@href, 'slow-calculator.html')]")));
+        //calculator.click();
+
+        driver.findElement(By.linkText("Slow calculator")).click();
+        //driver.findElement(By.xpath("//h5[text() = 'Chapter 3. WebDriver Fundamentals']/../a[contains(@href, 'slow-calculator.html')]")).click();
+
         String expectedUrl = "slow-calculator.html";
         String actualUrl = driver.getCurrentUrl();
 
@@ -149,10 +163,10 @@ public class HomePageTest {
     }
 
 
-
     //Chapter-4
     @Test
     void findLongPageTest () {
+        driver.get(BASE_URL);
         driver.findElement(By.xpath("//h5[text() = 'Chapter 4. Browser-Agnostic Features']/../a[contains(@href, 'long-page.html')]")).click();
         String expectedUrl = "long-page.html";
         String actualUrl = driver.getCurrentUrl();
@@ -165,6 +179,7 @@ public class HomePageTest {
 
     @Test
     void findInfiniteScrollTest () {
+        driver.get(BASE_URL);
         driver.findElement(By.xpath("//h5[text() = 'Chapter 4. Browser-Agnostic Features']/../a[contains(@href, 'infinite-scroll.html')]")).click();
         String expectedUrl = "infinite-scroll.html";
         String actualUrl = driver.getCurrentUrl();
@@ -177,6 +192,7 @@ public class HomePageTest {
 
     @Test
     void findShadowDOMTest () {
+        driver.get(BASE_URL);
         driver.findElement(By.xpath("//h5[text() = 'Chapter 4. Browser-Agnostic Features']/../a[contains(@href, 'shadow-dom.html')]")).click();
         String expectedUrl = "shadow-dom.html";
         String actualUrl = driver.getCurrentUrl();
@@ -201,7 +217,8 @@ public class HomePageTest {
 
     @Test
     void findFramesTest () {
-        driver.findElement(By.xpath("//h5[text() = 'Chapter 4. Browser-Agnostic Features']/../a[contains(@href, 'frames.html')]")).click();
+        driver.findElement(By.linkText("Frames")).click();
+        //driver.findElement(By.xpath("//h5[text() = 'Chapter 4. Browser-Agnostic Features']/../a[contains(@href, 'frames.html')]")).click();
         String expectedUrl = "frames.html";
         String actualUrl = driver.getCurrentUrl();
 
@@ -213,6 +230,7 @@ public class HomePageTest {
 
     @Test
     void findIFrameTest () {
+        driver.get(BASE_URL);
         driver.findElement(By.xpath("//h5[text() = 'Chapter 4. Browser-Agnostic Features']/../a[contains(@href, 'iframes.html')]")).click();
         String expectedUrl = "iframes.html";
         String actualUrl = driver.getCurrentUrl();
@@ -225,6 +243,7 @@ public class HomePageTest {
 
     @Test
     void findDialogBoxesTest () {
+        driver.get(BASE_URL);
         driver.findElement(By.xpath("//h5[text() = 'Chapter 4. Browser-Agnostic Features']/../a[contains(@href, 'dialog-boxes.html')]")).click();
         String expectedUrl = "dialog-boxes.html";
         String actualUrl = driver.getCurrentUrl();
@@ -237,6 +256,7 @@ public class HomePageTest {
 
     @Test
     void findWebStorageTest () {
+        driver.get(BASE_URL);
         driver.findElement(By.xpath("//h5[text() = 'Chapter 4. Browser-Agnostic Features']/../a[contains(@href, 'web-storage.html')]")).click();
         String expectedUrl = "web-storage.html";
         String actualUrl = driver.getCurrentUrl();
@@ -250,6 +270,7 @@ public class HomePageTest {
     //Chapter5
     @Test
     void findGeolocationTest () {
+        driver.get(BASE_URL);
         driver.findElement(By.xpath("//h5[text() = 'Chapter 5. Browser-Specific Manipulation']/../a[contains(@href, 'geolocation.html')]")).click();
         String expectedUrl = "geolocation.html";
         String actualUrl = driver.getCurrentUrl();
@@ -262,6 +283,7 @@ public class HomePageTest {
 
     @Test
     void findNotificationsTest () {
+        driver.get(BASE_URL);
         driver.findElement(By.xpath("//h5[text() = 'Chapter 5. Browser-Specific Manipulation']/../a[contains(@href, 'notifications.html')]")).click();
         String expectedUrl = "notifications.html";
         String actualUrl = driver.getCurrentUrl();
@@ -274,6 +296,7 @@ public class HomePageTest {
 
     @Test
     void findGetUserMediaTest () {
+        driver.get(BASE_URL);
         driver.findElement(By.xpath("//h5[text() = 'Chapter 5. Browser-Specific Manipulation']/../a[contains(@href, 'get-user-media.html')]")).click();
         String expectedUrl = "get-user-media.html";
         String actualUrl = driver.getCurrentUrl();
@@ -286,6 +309,7 @@ public class HomePageTest {
 
     @Test
     void findMultilanguageTest () {
+        driver.get(BASE_URL);
         driver.findElement(By.xpath("//h5[text() = 'Chapter 5. Browser-Specific Manipulation']/../a[contains(@href, 'multilanguage.html')]")).click();
         String expectedUrl = "multilanguage.html";
         String actualUrl = driver.getCurrentUrl();
@@ -298,6 +322,7 @@ public class HomePageTest {
 
     @Test
     void findConsoleLogsTest () {
+        driver.get(BASE_URL);
         driver.findElement(By.xpath("//h5[text() = 'Chapter 5. Browser-Specific Manipulation']/../a[contains(@href, 'console-logs.html')]")).click();
         String expectedUrl = "console-logs.html";
         String actualUrl = driver.getCurrentUrl();
@@ -311,6 +336,8 @@ public class HomePageTest {
     //Chapter7
     @Test
     void findLoginFormTest () {
+        driver.get(BASE_URL);
+        //driver.findElement(By.linkText("Login form")).click();
         driver.findElement(By.xpath("//h5[text() = 'Chapter 7. The Page Object Model (POM)']/../a[contains(@href, 'login-form.html')]")).click();
         String expectedUrl = "login-form.html";
         String actualUrl = driver.getCurrentUrl();
@@ -323,6 +350,7 @@ public class HomePageTest {
 
     @Test
     void findSlowLoginFormTest () {
+        driver.get(BASE_URL);
         driver.findElement(By.xpath("//h5[text() = 'Chapter 7. The Page Object Model (POM)']/../a[contains(@href, 'login-slow.html')]")).click();
         String expectedUrl = "login-slow.html";
         String actualUrl = driver.getCurrentUrl();
@@ -336,6 +364,7 @@ public class HomePageTest {
     //Chapter8
     @Test
     void findRandomCalculatorTest () {
+        driver.get(BASE_URL);
         driver.findElement(By.xpath("//h5[text() = 'Chapter 8. Testing Framework Specifics']/../a[contains(@href, 'random-calculator.html')]")).click();
         String expectedUrl = "random-calculator.html";
         String actualUrl = driver.getCurrentUrl();
@@ -349,7 +378,9 @@ public class HomePageTest {
     //Chapter9
     @Test
     void findDownloadFilesTest () {
-        driver.findElement(By.xpath("//h5[text() = 'Chapter 9. Third-Party Integrations']/../a[contains(@href, 'download.html')]")).click();
+        driver.get(BASE_URL);
+        driver.findElement(By.linkText("Download files")).click();
+        //driver.findElement(By.xpath("//h5[text() = 'Chapter 9. Third-Party Integrations']/../a[contains(@href, 'download.html')]")).click();
         String expectedUrl = "download.html";
         String actualUrl = driver.getCurrentUrl();
 
@@ -361,6 +392,7 @@ public class HomePageTest {
 
     @Test
     void findABTestingTest () {
+        driver.get(BASE_URL);
         driver.findElement(By.xpath("//h5[text() = 'Chapter 9. Third-Party Integrations']/../a[contains(@href, 'ab-testing.html')]")).click();
         String expectedUrl = "ab-testing.html";
         String actualUrl = driver.getCurrentUrl();
@@ -373,6 +405,7 @@ public class HomePageTest {
 
     @Test
     void findDataTypesTest () {
+        driver.get(BASE_URL);
         driver.findElement(By.xpath("//h5[text() = 'Chapter 9. Third-Party Integrations']/../a[contains(@href, 'data-types.html')]")).click();
         String expectedUrl = "data-types.html";
         String actualUrl = driver.getCurrentUrl();
